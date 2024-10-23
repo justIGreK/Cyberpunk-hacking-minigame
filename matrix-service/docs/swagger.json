@@ -1,0 +1,68 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Cyberpunk 2077 hacking mini game",
+        "contact": {}
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/GetSequence": {
+            "get": {
+                "description": "Get new matrix and sequences for hacking",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Matrix_service"
+                ],
+                "summary": "GetSequence",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of Hack",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/Hack": {
+            "post": {
+                "description": "Try to hack matrix by your own",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "HackTools"
+                ],
+                "summary": "Hack",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of matrix",
+                        "name": "matrix_id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "clear coordinates of attempts to hack matrix",
+                        "name": "attempts",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        }
+    }
+}

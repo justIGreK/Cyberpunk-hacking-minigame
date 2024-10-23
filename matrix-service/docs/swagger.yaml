@@ -1,0 +1,46 @@
+basePath: /
+host: localhost:8080
+info:
+  contact: {}
+  title: Cyberpunk 2077 hacking mini game
+paths:
+  /GetSequence:
+    get:
+      consumes:
+      - application/json
+      description: Get new matrix and sequences for hacking
+      parameters:
+      - description: id of Hack
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: GetSequence
+      tags:
+      - Matrix_service
+  /Hack:
+    post:
+      consumes:
+      - application/json
+      description: Try to hack matrix by your own
+      parameters:
+      - description: id of matrix
+        in: query
+        name: matrix_id
+        required: true
+        type: integer
+      - description: clear coordinates of attempts to hack matrix
+        in: query
+        name: attempts
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Hack
+      tags:
+      - HackTools
+swagger: "2.0"

@@ -1,0 +1,24 @@
+basePath: /
+host: localhost:8081
+info:
+  contact: {}
+  title: Utility to solve matrices of matrix_service
+paths:
+  /Hack:
+    post:
+      consumes:
+      - application/json
+      description: Get ready answers how to hack matrixes of matrix_service
+      parameters:
+      - description: id of the matrix desired to be hacked
+        in: query
+        name: matrix_id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: Hack
+      tags:
+      - Hack
+swagger: "2.0"

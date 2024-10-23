@@ -1,0 +1,57 @@
+services:
+  matrix-service:
+    build:
+      context: ./matrix-service
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      MONGO_URI: mongodb://matrix-mongo:27017/matrixdb
+      PORT: 8080
+    networks:
+      - hacknet
+    depends_on:
+      - matrix-mongo
+    
+
+  matrix-mongo:
+    image: mongo:6.0
+    container_name: matrix-mongo
+    ports:
+      - 27017:27017
+    restart: always
+    networks:
+      - hacknet
+    volumes:
+      - "/var/lib/mongodb-matrix:/data/db"
+
+  hacker-service:
+    build:
+      context: ./hacker-service
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    environment:
+      MONGO_URI: mongodb://hacker-mongo:27017/hackerdb
+      MATRIX_SRV_URL: http://matrix-service:8080
+      PORT: 8081
+    networks:
+      - hacknet
+    depends_on:
+      - hacker-mongo
+
+  hacker-mongo:
+    image: mongo:6.0
+    container_name: hacker-mongo
+    ports:
+      - 27018:27017
+    restart: always
+    networks:
+      - hacknet
+    volumes:
+      - "/var/lib/mongodb-hack:/data/db"
+
+networks:
+  hacknet:
+    driver: bridge
+      
