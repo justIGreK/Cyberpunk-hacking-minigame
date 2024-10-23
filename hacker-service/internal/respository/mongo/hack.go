@@ -20,14 +20,6 @@ func NewMatrixRepo(client *mongo.Client) *MatrixRepo {
 	}
 }
 
-func (r *MatrixRepo) AddHackReport(ctx context.Context, hackReport models.HackReport) error {
-	_, err := r.ReportsCollection.InsertOne(ctx, hackReport)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-
 func (r *MatrixRepo) AddReadyAnswers(ctx context.Context, readyAnswers models.ReadyAnswers) error{
 	_, err := r.AnswersCollection.InsertOne(ctx, readyAnswers)
 	if err != nil {

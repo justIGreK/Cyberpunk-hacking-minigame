@@ -13,6 +13,7 @@ import (
 type MatrixRepository interface {
 	GetReadyAnswers(ctx context.Context, id int) (models.ReadyAnswers, error)
 	GetMatrix(ctx context.Context, id int) (models.HackMatrix, error)
+	GetReports(ctx context.Context) ([]models.HackReport, error)
 	AddReadyAnswers(ctx context.Context, readyAnswers models.ReadyAnswers) error
 	AddHackReport(ctx context.Context, hackReport models.HackReport) error
 }
@@ -78,9 +79,9 @@ func (s *MatrixService) bruteForceHack(hackMaterial *models.HackMatrix) (models.
 		bfResults.Results[seqIndex] = result
 		bfResults.SuccessRoute[seqIndex] = route
 		if result {
-			readyAnswers[seqIndex] = "Posible " + route
+			readyAnswers[seqIndex] = fmt.Sprintf("Sequence %v is posible: %s", sequence, route)
 		} else {
-			readyAnswers[seqIndex] = "Impossible"
+			readyAnswers[seqIndex] = fmt.Sprintf("Sequence %v is imposible", sequence)
 		}
 
 	}

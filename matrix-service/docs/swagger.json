@@ -10,20 +10,39 @@
         "/GetSequence": {
             "get": {
                 "description": "Get new matrix and sequences for hacking",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Matrix_service"
+                    "Main tools"
                 ],
                 "summary": "GetSequence",
                 "parameters": [
                     {
                         "type": "integer",
-                        "description": "id of Hack",
+                        "description": "id of Matrix",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/GetSequenceSugar": {
+            "get": {
+                "description": "Get new matrix and sequences for hacking with human representation",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Additional methods"
+                ],
+                "summary": "GetSequence For Human",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "id of Matrix",
                         "name": "id",
                         "in": "query",
                         "required": true
@@ -35,14 +54,11 @@
         "/Hack": {
             "post": {
                 "description": "Try to hack matrix by your own",
-                "consumes": [
-                    "application/json"
-                ],
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "HackTools"
+                    "Main tools"
                 ],
                 "summary": "Hack",
                 "parameters": [
@@ -55,8 +71,8 @@
                     },
                     {
                         "type": "string",
-                        "description": "clear coordinates of attempts to hack matrix",
-                        "name": "attempts",
+                        "description": "path with clear coordinates to hack matrix",
+                        "name": "path",
                         "in": "query",
                         "required": true
                     }

@@ -9,13 +9,13 @@ import (
 	"strings"
 )
 
-func (s *MatrixService) HackMatrix(ctx context.Context, attempts models.HackAttempts) (bool, error) {
-	matrix, err := s.repo.GetMatrix(ctx, attempts.MatrixID)
+func (s *MatrixService) HackMatrix(ctx context.Context, attempt models.HackAttempt) (bool, error) {
+	matrix, err := s.repo.GetMatrix(ctx, attempt.MatrixID)
 	if err != nil {
 		return false, errors.New("Matrix is not found")
 	}
 
-	hackCords, err := s.convertInputToCoordinates(attempts.Attempts)
+	hackCords, err := s.convertInputToCoordinates(attempt.Path)
 	if err != nil {
 		return false, err
 	}
@@ -58,7 +58,7 @@ func (s *MatrixService) convertInputToCoordinates(input string) ([][2]int, error
 	parts := strings.Fields(input)
 	isOkay := s.isAnyEqualSteps(parts)
 	if !isOkay {
-		return nil, errors.New("Duplicate step detected")
+		return nil, errors.New("Duplicate step detected, violation of the 3nd rule")
 	}
 	var coordinates [][2]int
 	count, lastRow, lastCol := 0, 0, 0
@@ -76,11 +76,11 @@ func (s *MatrixService) convertInputToCoordinates(input string) ([][2]int, error
 		}
 		if count%2 == 0 {
 			if lastRow != row {
-				return nil, fmt.Errorf("invalid row on %v step, rule 'each step change row->column->row is not followed'", count+1)
+				return nil, fmt.Errorf("invalid row on %v step, violation of the 2nd rule'", count+1)
 			}
 		} else {
 			if lastCol != col {
-				return nil, fmt.Errorf("invalid col on %v step, rule 'each step change row->column->row is not followed'", count+1)
+				return nil, fmt.Errorf("invalid col on %v step, violation of the 2nd rule", count+1)
 			}
 		}
 		lastRow, lastCol = row, col
@@ -90,10 +90,10 @@ func (s *MatrixService) convertInputToCoordinates(input string) ([][2]int, error
 	return coordinates, nil
 }
 
-func (s *MatrixService) isAnyEqualSteps(attempts []string) bool {
-	for i := 0; i < len(attempts); i++ {
-		for j := i + 1; j < len(attempts); j++ {
-			if attempts[i] == attempts[j] {
+func (s *MatrixService) isAnyEqualSteps(steps []string) bool {
+	for i := 0; i < len(steps); i++ {
+		for j := i + 1; j < len(steps); j++ {
+			if steps[i] == steps[j] {
 				return false
 			}
 		}

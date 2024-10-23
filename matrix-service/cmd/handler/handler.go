@@ -17,7 +17,7 @@ type Service interface {
 	GenerateMatrix() [][]int
 	GenerateSequences() [][]int
 	GetMatrix(ctx context.Context, id int) (*models.HackMatrix, error)
-	HackMatrix(ctx context.Context, attempts models.HackAttempts) (bool, error)
+	HackMatrix(ctx context.Context, attempt models.HackAttempt) (bool, error)
 }
 
 func NewHandler(matrixService Service) *Handler {
@@ -28,6 +28,7 @@ func (h *Handler) InitRoutes() *chi.Mux {
 	r := chi.NewRouter()
 	r.Get("/swagger/*", httpSwagger.WrapHandler)
 	r.Get("/GetSequence", h.GetSequence)
+	r.Get("/GetSequenceSugar", h.GetSequenceForHuman)
 	r.Post("/Hack", h.Hack)
 
 	return r

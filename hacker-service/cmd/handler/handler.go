@@ -3,6 +3,7 @@ package handler
 import (
 	"context"
 	_ "hacker-service/docs"
+	"hacker-service/internal/models"
 
 	"github.com/go-chi/chi"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -14,6 +15,7 @@ type Handler struct {
 
 type Service interface {
 	HackMatrix(ctx context.Context, id int) ([]string, error)
+	GetReports(ctx context.Context)([]models.HackReport, error)
 }
 
 func NewHandler(matrixService Service) *Handler {
@@ -23,7 +25,8 @@ func NewHandler(matrixService Service) *Handler {
 func (h *Handler) InitRoutes() *chi.Mux {
 	r := chi.NewRouter()
 	r.Get("/swagger/*", httpSwagger.WrapHandler)
-	r.Post("/Hack", h.Hack)
+	r.Post("/HelpHack", h.Hack)
+	r.Get("/GetReports", h.GetReports)
 
 	return r
 }

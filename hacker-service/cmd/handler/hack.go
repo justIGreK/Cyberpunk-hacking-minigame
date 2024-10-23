@@ -6,13 +6,12 @@ import (
 	"strconv"
 )
 
-// @Summary Hack
-// @Tags Hack
+// @Summary HelpHack
+// @Tags Main tools
 // @Description Get ready answers how to hack matrixes of matrix_service
-// @Accept  json
 // @Produce  json
 // @Param matrix_id query int true "id of the matrix desired to be hacked"
-// @Router /Hack [post]
+// @Router /HelpHack [post]
 func (h *Handler) Hack(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("matrix_id")
 	id, err := strconv.Atoi(idStr)
@@ -28,6 +27,7 @@ func (h *Handler) Hack(w http.ResponseWriter, r *http.Request) {
 	response := map[string]interface{}{
 		"Answers": answers,
 	}
+	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
 
 }

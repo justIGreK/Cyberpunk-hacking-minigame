@@ -25,7 +25,7 @@ These rules define the navigation process and the conditions for a successful ha
 ## Project Structure
 
 - **hacker-service**: The service that generates the matrix and sequences for hacking.
-- **martix-service**: The service that receives hacking attempts and checks their validity.
+- **martix-service**: The service that receives hacking paths and checks their validity.
 
 ## Installation and Running
 
@@ -51,16 +51,30 @@ curl -X GET "http://localhost:8080/GetSequence?id=1"
 ### Hacking Attempt
 To attempt to solve the matrix manually, send a `POST` request to the `/Hack` endpoint with the matrix ID and a string representing the path of coordinates:
 ```bash
-curl -X POST "http://localhost:8080/Hack?matrix_id=1&attempts="00 10 11 21""
+curl -X POST "http://localhost:8080/Hack?matrix_id=1&path="00 10 11 21""
 ```
-### Automatic Hacking Attempt
-
-If the matrix seems too challenging to solve manually, or if you want to view the solution for a specific matrix, you can use the second service for automatic solving. Send a `POST` request to the `/Hack` endpoint of the second service:
-
+### Additional Methods for User Convenience
+To verify the proper functioning of the hacker-service and to improve the readability of matrices for subsequent solutions in the matrix-service, the following methods have been added:
+#### 1. GetSequenceSugar 
+This endpoint replicates the functionality of `/GetSequence` but is specifically designed for end-users. It presents matrix data in a more readable format, making it easier to understand and solve.
+    
 ```bash
-curl -X POST "http://localhost:8081/Hack?matrix_id=3"
+curl -X GET "http://localhost:8080/GetSequenceSugar?id=1"
 ```
-This request will use the given matrix_id to retrieve the solution, if available, for the specified matrix. The service will try to solve the matrix using the provided ID and return the solution path if successful.
+This endpoint replicates the functionality of `/GetSequence` but is specifically designed for end-users. It presents matrix data in a more readable format, making it easier to understand and solve.
+    
+#### 2. HelpHack 
+This endpoint allows users to verify whether a specific matrix is solvable. If a solution exists, it provides a potential path to solve the matrix. It's particularly useful for users who want to see a sample solution.
+```bash
+curl -X POST "http://localhost:8081/HelpHack?matrix_id=3"
+```
+
+#### 3. GetReports
+This endpoint offers compiled reports on the matrices that have been solved. It provides an overview of the completed matrices, which can be useful for tracking progress or understanding the types of challenges encountered.
+```bash
+curl -X GET "http://localhost:8081/GetReports"
+```
+
 
 ### API Documentation
 For convenient management of methods, we recommend visiting the Swagger interface after starting the services:

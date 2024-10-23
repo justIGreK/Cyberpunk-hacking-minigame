@@ -15,19 +15,29 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/Hack": {
-            "post": {
-                "description": "Get ready answers how to hack matrixes of matrix_service",
-                "consumes": [
-                    "application/json"
-                ],
+        "/GetReports": {
+            "get": {
+                "description": "Check reports of hacked matrixes",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Hack"
+                    "Additional methods"
                 ],
-                "summary": "Hack",
+                "summary": "Reports",
+                "responses": {}
+            }
+        },
+        "/HelpHack": {
+            "post": {
+                "description": "Get ready answers how to hack matrixes of matrix_service",
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Main tools"
+                ],
+                "summary": "HelpHack",
                 "parameters": [
                     {
                         "type": "integer",

@@ -6,7 +6,7 @@ type HackMatrix struct {
 	Sequence [][]int `bson:"sequences"`
 }
 
-type HackAttempts struct{
+type HackAttempt struct{
 	MatrixID int `json:"matrix_id"`
-	Attempts string `json:"attempts"`
+	Path string `json:"path"`
 }

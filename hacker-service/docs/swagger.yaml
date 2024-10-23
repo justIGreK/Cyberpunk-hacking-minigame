@@ -4,10 +4,17 @@ info:
   contact: {}
   title: Utility to solve matrices of matrix_service
 paths:
-  /Hack:
-    post:
-      consumes:
+  /GetReports:
+    get:
+      description: Check reports of hacked matrixes
+      produces:
       - application/json
+      responses: {}
+      summary: Reports
+      tags:
+      - Additional methods
+  /HelpHack:
+    post:
       description: Get ready answers how to hack matrixes of matrix_service
       parameters:
       - description: id of the matrix desired to be hacked
@@ -18,7 +25,7 @@ paths:
       produces:
       - application/json
       responses: {}
-      summary: Hack
+      summary: HelpHack
       tags:
-      - Hack
+      - Main tools
 swagger: "2.0"

@@ -6,11 +6,9 @@ info:
 paths:
   /GetSequence:
     get:
-      consumes:
-      - application/json
       description: Get new matrix and sequences for hacking
       parameters:
-      - description: id of Hack
+      - description: id of Matrix
         in: query
         name: id
         required: true
@@ -20,11 +18,24 @@ paths:
       responses: {}
       summary: GetSequence
       tags:
-      - Matrix_service
+      - Main tools
+  /GetSequenceSugar:
+    get:
+      description: Get new matrix and sequences for hacking with human representation
+      parameters:
+      - description: id of Matrix
+        in: query
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses: {}
+      summary: GetSequence For Human
+      tags:
+      - Additional methods
   /Hack:
     post:
-      consumes:
-      - application/json
       description: Try to hack matrix by your own
       parameters:
       - description: id of matrix
@@ -32,9 +43,9 @@ paths:
         name: matrix_id
         required: true
         type: integer
-      - description: clear coordinates of attempts to hack matrix
+      - description: path with clear coordinates to hack matrix
         in: query
-        name: attempts
+        name: path
         required: true
         type: string
       produces:
@@ -42,5 +53,5 @@ paths:
       responses: {}
       summary: Hack
       tags:
-      - HackTools
+      - Main tools
 swagger: "2.0"

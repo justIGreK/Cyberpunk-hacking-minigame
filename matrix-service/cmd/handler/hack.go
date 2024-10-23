@@ -9,12 +9,11 @@ import (
 )
 
 // @Summary Hack
-// @Tags HackTools
+// @Tags Main tools
 // @Description Try to hack matrix by your own
-// @Accept  json
 // @Produce  json
 // @Param matrix_id query int true "id of matrix"
-// @Param attempts query string true "clear coordinates of attempts to hack matrix"
+// @Param path query string true "path with clear coordinates to hack matrix"
 // @Router /Hack [post]
 func (h *Handler) Hack(w http.ResponseWriter, r *http.Request) {
 	idStr := r.URL.Query().Get("matrix_id")
@@ -23,12 +22,12 @@ func (h *Handler) Hack(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Invalid request body", http.StatusBadRequest)
 		return
 	}
-	haskTry := models.HackAttempts{
+	haskTry := models.HackAttempt{
 		MatrixID: id,
-		Attempts: r.URL.Query().Get("attempts"),
+		Path: r.URL.Query().Get("path"),
 	}
-	if strings.TrimSpace(haskTry.Attempts) == ""{
-		http.Error(w, "Empty attemtps field", http.StatusUnprocessableEntity)
+	if strings.TrimSpace(haskTry.Path) == ""{
+		http.Error(w, "Empty path field", http.StatusBadRequest)
 		return
 	}
 
@@ -43,7 +42,7 @@ func (h *Handler) Hack(w http.ResponseWriter, r *http.Request) {
 		json.NewEncoder(w).Encode("Matrix is successfully hacked")
 		return
 	} else {
-		http.Error(w, "Failed", http.StatusUnprocessableEntity)
+		http.Error(w, "Failed", http.StatusBadRequest)
 		return
 	}
 }
